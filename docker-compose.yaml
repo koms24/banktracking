@@ -1,4 +1,3 @@
-version: "3.5"
 services:
   app:
     image: fireflyiii/core:latest
@@ -7,39 +6,66 @@ services:
     restart: always
     volumes:
       - firefly_iii_upload:/var/www/html/storage/upload
-      - ./firefly/html:/var/www/html
     env_file: .env
-    networks:
-      - youteller
     ports:
-      - 83:8080
+      - 8087:8080
+    networks:
+      - firefly_iii
     depends_on:
       - db
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflare-tunnel-cash
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token 
+    networks:
+      - firefly_iii
   db:
-    image: mariadb
+    image: postgres
     hostname: db
     container_name: firefly_iii_db
     restart: always
     env_file: .db.env
     networks:
-      - youteller
+      - firefly_iii
     volumes:
-      - firefly_iii_db:/var/lib/mysql
+      - firefly_iii_db:/var/lib/postgresql
+  cron:
+    #
+    # To make this work, set STATIC_CRON_TOKEN in your .env file or as an environment variable
+    # The STATIC_CRON_TOKEN must be *exactly* 32 characters long
+    #
+    image: alpine
+    restart: always
+    container_name: firefly_iii_cron
+    env_file: .env
+    command: sh -c "
+      apk add tzdata && \
+      (ln -s /usr/share/zoneinfo/$$TZ /etc/localtime || true) && \
+      echo \"0 3 * * * wget -qO- http://app:8080/api/v1/cron/$$STATIC_CRON_TOKEN;echo\"
+      | crontab - && \
+      crond -f -L /dev/stdout"
+    networks:
+      - firefly_iii
+    depends_on:
+      - app
   youteller-api:
     container_name: youteller-api
     env_file: ./youteller-api/.env
     volumes:
       - ./youteller-api:/opt/app/youteller-api
+      - ./youteller-api/cursors:/opt/app/youteller-api/cursors
     networks:
-      - youteller
+      - firefly_iii
     build:
       context: .
       dockerfile: ./youteller-api/Dockerfile
     ports:
-      - 8000:8000
-networks:
-  youteller:
-    name: youteller
+      - 8085:8000
 volumes:
-  firefly_iii_upload:
-  firefly_iii_db:
+   firefly_iii_upload:
+   firefly_iii_db:
+
+networks:
+  firefly_iii:
+    driver: bridge
