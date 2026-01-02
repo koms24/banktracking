@@ -17,7 +17,7 @@ services:
     image: cloudflare/cloudflared:latest
     container_name: cloudflare-tunnel-cash
     restart: unless-stopped
-    command: tunnel --no-autoupdate run --token 
+    command: tunnel --no-autoupdate run --token eyJhIjoiZDBhMmM2MmM5NDAyODJiM2IyYTJhYWEzOTA4MDZhODgiLCJ0IjoiYzI1NzliYmItY2IwMC00MmMyLTk2ZmItNGJmNzcxYTBiYTRmIiwicyI6Ik1EbGxOVEkyTldFdE16Qm1NUzAwWm1Rd0xXRTNaak10T1RBMlltRm1NamhqWldJMCJ9
     networks:
       - firefly_iii
   db:
@@ -62,6 +62,8 @@ services:
       dockerfile: ./youteller-api/Dockerfile
     ports:
       - 8085:8000
+    depends_on:
+      - app
 volumes:
    firefly_iii_upload:
    firefly_iii_db:

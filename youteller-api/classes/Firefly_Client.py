@@ -1,10 +1,18 @@
+def strtobool(val):
+    val = val.lower()
+    if val in ('y', 'yes', 't', 'true', 'on', '1'):
+        return 1
+    elif val in ('n', 'no', 'f', 'false', 'off', '0'):
+        return 0
+    else:
+        raise ValueError("invalid truth value %r" % (val,))
 import os
 import datetime as dt
 import json
 import logging
 import requests
 from dotenv import load_dotenv
-from distutils.util import strtobool
+import urllib3
 
 class Firefly_Client:
     def __init__(self, portfolio):
@@ -27,6 +35,15 @@ class Firefly_Client:
         self.FF_ERROR_IF_DUPLICATE_HASH = strtobool(os.getenv('FF_ERROR_IF_DUPLICATE_HASH'))
         self.FF_APPLY_RULES = strtobool(os.getenv('FF_APPLY_RULES'))
         self.FF_FIRE_WEBHOOKS = strtobool(os.getenv('FF_FIRE_WEBHOOKS'))
+        
+        # SSL Verification Configuration
+        # Set FF_VERIFY_SSL=false to disable SSL verification (useful for self-signed certificates in development)
+        # Default to False for development environments
+        self.FF_VERIFY_SSL = strtobool(os.getenv('FF_VERIFY_SSL', 'false'))
+        
+        # Suppress SSL warnings if verification is disabled
+        if not self.FF_VERIFY_SSL:
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     # Function for processing the raw data received from Plaid
     def process_transactions(self, new_transactions, account, first_time_sync):
@@ -105,7 +122,7 @@ class Firefly_Client:
         # Add transactions payload to request
         ff_request['transactions'] = payload
         # Send transactions payload to Firefly
-        response = requests.post(f"{self.FF_API_URL}/v1/transactions",json=ff_request,headers=ff_headers)
+        response = requests.post(f"{self.FF_API_URL}/v1/transactions",json=ff_request,headers=ff_headers,verify=self.FF_VERIFY_SSL)
         self.logger.info('Firefly Request:')
         self.logger.info(response.json())
 
@@ -115,7 +132,7 @@ class Firefly_Client:
 
         # Fetch current account info from Firefly
         ff_headers = {'accept':'application/vnd.api+json','Authorization':self.FF_TOKEN}
-        response = requests.get(f"{self.FF_API_URL}/v1/accounts/{account['ff_id']}",headers=ff_headers)
+        response = requests.get(f"{self.FF_API_URL}/v1/accounts/{account['ff_id']}",headers=ff_headers,verify=self.FF_VERIFY_SSL)
 
         # Initialize Firefly account object
         ff_account = response.json()['data']['attributes']

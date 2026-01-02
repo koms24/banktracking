@@ -7,6 +7,7 @@ import logging
 import requests
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
+from waitress import serve
 
 # Import portfolio module
 import Portfolio
@@ -56,4 +57,6 @@ def get_transactions():
 # Put code here
 
 if __name__ == '__main__':
-    app.run(port=int(os.getenv('PORT', 8000)))
+    port = int(os.getenv('PORT', 8000))
+    serve(app, host='0.0.0.0', port=port)
+
