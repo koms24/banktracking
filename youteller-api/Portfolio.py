@@ -26,52 +26,52 @@ class Portfolio:
         self.bank['cursor'] = ''
         self.accounts.append(self.bank)
 
-        # Assemble liabilities objects matching Plaid Access Tokens and Account IDs to Firefly III Bank Name and IDs
-        # Liability one
-        self.liability = {}
-        self.liability['type'] = 'liability'
-        self.liability['access_token'] = os.getenv('PLAID_CC_1_ACCESS_TOKEN')
-        self.liability['pl_id'] = os.getenv('PLAID_CC_1_ID')
-        self.liability['ff_id'] = os.getenv('FF_CC_1_ID')
-        self.liability['ff_name'] = os.getenv('FF_CC_1_NAME')
-        self.liability['cursor'] = ''
-        self.accounts.append(self.liability)
-        # Liability two
-        self.liability = {}
-        self.liability['type'] = 'liability'
-        self.liability['access_token'] = os.getenv('PLAID_CC_2_ACCESS_TOKEN')
-        self.liability['pl_id'] = os.getenv('PLAID_CC_2_ID')
-        self.liability['ff_id'] = os.getenv('FF_CC_2_ID')
-        self.liability['ff_name'] = os.getenv('FF_CC_2_NAME')
-        self.liability['cursor'] = ''
-        self.accounts.append(self.liability)
-        # Liability three
-        self.liability = {}
-        self.liability['type'] = 'liability'
-        self.liability['access_token'] = os.getenv('PLAID_CC_3_ACCESS_TOKEN')
-        self.liability['pl_id'] = os.getenv('PLAID_CC_3_ID')
-        self.liability['ff_id'] = os.getenv('FF_CC_3_ID')
-        self.liability['ff_name'] = os.getenv('FF_CC_3_NAME')
-        self.liability['cursor'] = ''
-        self.accounts.append(self.liability)
-        # Liability four
-        self.liability = {}
-        self.liability['type'] = 'liability'
-        self.liability['access_token'] = None
-        self.liability['pl_id'] = None
-        self.liability['ff_id'] = os.getenv('FF_AUTO_LOAN_1_ID')
-        self.liability['ff_name'] = os.getenv('FF_AUTO_LOAN_1_NAME')
-        self.liability['cursor'] = ''
-        self.accounts.append(self.liability)
-        # Liability five
-        self.liability = {}
-        self.liability['type'] = 'liability'
-        self.liability['access_token'] = None
-        self.liability['pl_id'] = None
-        self.liability['ff_id'] = os.getenv('FF_MORTGAGE_1_ID')
-        self.liability['ff_name'] = os.getenv('FF_MORTGAGE_1_NAME')
-        self.liability['cursor'] = ''
-        self.accounts.append(self.liability)
+        # # Assemble liabilities objects matching Plaid Access Tokens and Account IDs to Firefly III Bank Name and IDs
+        # # Liability one
+        # self.liability = {}
+        # self.liability['type'] = 'liability'
+        # self.liability['access_token'] = os.getenv('PLAID_CC_1_ACCESS_TOKEN')
+        # self.liability['pl_id'] = os.getenv('PLAID_CC_1_ID')
+        # self.liability['ff_id'] = os.getenv('FF_CC_1_ID')
+        # self.liability['ff_name'] = os.getenv('FF_CC_1_NAME')
+        # self.liability['cursor'] = ''
+        # self.accounts.append(self.liability)
+        # # Liability two
+        # self.liability = {}
+        # self.liability['type'] = 'liability'
+        # self.liability['access_token'] = os.getenv('PLAID_CC_2_ACCESS_TOKEN')
+        # self.liability['pl_id'] = os.getenv('PLAID_CC_2_ID')
+        # self.liability['ff_id'] = os.getenv('FF_CC_2_ID')
+        # self.liability['ff_name'] = os.getenv('FF_CC_2_NAME')
+        # self.liability['cursor'] = ''
+        # self.accounts.append(self.liability)
+        # # Liability three
+        # self.liability = {}
+        # self.liability['type'] = 'liability'
+        # self.liability['access_token'] = os.getenv('PLAID_CC_3_ACCESS_TOKEN')
+        # self.liability['pl_id'] = os.getenv('PLAID_CC_3_ID')
+        # self.liability['ff_id'] = os.getenv('FF_CC_3_ID')
+        # self.liability['ff_name'] = os.getenv('FF_CC_3_NAME')
+        # self.liability['cursor'] = ''
+        # self.accounts.append(self.liability)
+        # # Liability four
+        # self.liability = {}
+        # self.liability['type'] = 'liability'
+        # self.liability['access_token'] = None
+        # self.liability['pl_id'] = None
+        # self.liability['ff_id'] = os.getenv('FF_AUTO_LOAN_1_ID')
+        # self.liability['ff_name'] = os.getenv('FF_AUTO_LOAN_1_NAME')
+        # self.liability['cursor'] = ''
+        # self.accounts.append(self.liability)
+        # # Liability five
+        # self.liability = {}
+        # self.liability['type'] = 'liability'
+        # self.liability['access_token'] = None
+        # self.liability['pl_id'] = None
+        # self.liability['ff_id'] = os.getenv('FF_MORTGAGE_1_ID')
+        # self.liability['ff_name'] = os.getenv('FF_MORTGAGE_1_NAME')
+        # self.liability['cursor'] = ''
+        # self.accounts.append(self.liability)
 
         # Assemble investments objects matching Plaid Access Tokens and Account IDs to Firefly III Bank Name and IDs
         # Investment one
