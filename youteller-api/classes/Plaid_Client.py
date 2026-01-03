@@ -92,7 +92,7 @@ class Plaid_Client:
                 account['cursor'] = response['next_cursor']
 
                 # Log out the length of returned transactions
-                self.logger.info(f"New transactions to process for {account['ff_name']}: {len(response['added'])}")
+                self.logger.info(f'New transactions to process for {account['ff_name']}: {len(response['added'])}')
 
                 # If there is transactions to sync, process them through the Firefly_Client.py (note that the function returns the oldest transaction date)
                 if len(response['added']):

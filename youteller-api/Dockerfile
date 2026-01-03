@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM python:3.14-slim
 
 WORKDIR /opt/app
 COPY ./youteller-api ./youteller-api

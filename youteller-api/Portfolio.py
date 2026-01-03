@@ -17,14 +17,14 @@ class Portfolio:
         self.bank['cursor'] = ''
         self.accounts.append(self.bank)
         # Bank two
-        self.bank = {}
-        self.bank['type'] = 'bank'
-        self.bank['access_token'] = os.getenv('PLAID_HYS_1_ACCESS_TOKEN')
-        self.bank['pl_id'] = os.getenv('PLAID_HYS_1_ID')
-        self.bank['ff_id'] = os.getenv('FF_HYS_1_ID')
-        self.bank['ff_name'] = os.getenv('FF_HYS_1_NAME')
-        self.bank['cursor'] = ''
-        self.accounts.append(self.bank)
+        # self.bank = {}
+        # self.bank['type'] = 'bank'
+        # self.bank['access_token'] = os.getenv('PLAID_HYS_1_ACCESS_TOKEN')
+        # self.bank['pl_id'] = os.getenv('PLAID_HYS_1_ID')
+        # self.bank['ff_id'] = os.getenv('FF_HYS_1_ID')
+        # self.bank['ff_name'] = os.getenv('FF_HYS_1_NAME')
+        # self.bank['cursor'] = ''
+        # self.accounts.append(self.bank)
 
         # # Assemble liabilities objects matching Plaid Access Tokens and Account IDs to Firefly III Bank Name and IDs
         # # Liability one
